@@ -1,0 +1,14 @@
+import './admin-user';
+import './profile-edit-profile';
+import './profile-edit-password';
+import './city';
+import './contact-method';
+import './disability';
+import './disease';
+import './education-level';
+import './state';
+import './status';
+import './questionnaire-type';
+import './applicant-relationship';
+import './applicant';
+import './questionnaire-template';
