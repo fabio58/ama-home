@@ -9,7 +9,6 @@
                     <div class="input-group">
 
                         <multiselect
-                            name="form.diseases[][id]"
                             v-model="disease.id"
                             :options="diseaseselect"
                             :multiple="false"

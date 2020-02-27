@@ -4,7 +4,7 @@ namespace App\Http\Requests\Admin\Applicant;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Auth;
 
 class StoreApplicant extends FormRequest
 {
@@ -15,7 +15,8 @@ class StoreApplicant extends FormRequest
      */
     public function authorize(): bool
     {
-        return Gate::allows('admin.applicant.create');
+        return true; 
+        //return Gate::allows('admin.applicant.create');
     }
 
     /**
@@ -23,26 +24,26 @@ class StoreApplicant extends FormRequest
      *
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
-            'names' => ['nullable', 'string'],
-            'last_names' => ['nullable', 'string'],
-            'birthdate' => ['nullable', 'date'],
-            'gender' => ['nullable', 'string'],
-            'state_id' => ['nullable', 'string'],
-            'city_id' => ['nullable', 'string'],
+            // 'names' => ['nullable', 'string'],
+            // 'last_names' => ['nullable', 'string'],
+            // 'birthdate' => ['nullable', 'date'],
+            // 'gender' => ['nullable', 'string'],
+            // 'state_id' => ['nullable', 'string'],
+            // 'city_id' => ['nullable', 'string'],
             'education_level' => ['required'],
-            'government_id' => ['nullable', 'string'],
-            'marital_status' => ['nullable', 'string'],
-            'pregnant' => ['nullable', 'boolean'],
-            'pregnancy_due_date' => ['nullable', 'string'],
-            'parent_applicant' => ['nullable', 'string'],
-            'applicant_relationship' => ['nullable', 'string'],
-            'cadaster' => ['nullable', 'string'],
-            'property_id' => ['nullable', 'string'],
-            'occupation' => ['nullable', 'string'],
-            'monthly_income' => ['nullable', 'numeric'],
+            // 'government_id' => ['nullable', 'string'],
+            // 'marital_status' => ['nullable', 'string'],
+            // 'pregnant' => ['nullable', 'boole0an'],
+            // 'pregnancy_due_date' => ['nullable', 'string'],
+            // 'parent_applicant' => ['nullable', 'string'],
+            // 'applicant_relationship' => ['nullable', 'string'],
+            // 'cadaster' => ['nullable', 'string'],
+            // 'property_id' => ['nullable', 'string'],
+            // 'occupation' => ['nullable', 'string'],
+            // 'monthly_income' => ['nullable', 'numeric'],
 
         ];
     }

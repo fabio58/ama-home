@@ -3,6 +3,16 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Brackets\Media\HasMedia\ProcessMediaTrait;
+use Brackets\Media\HasMedia\AutoProcessMediaTrait;
+use Brackets\Media\HasMedia\HasMediaCollectionsTrait;
+use Spatie\MediaLibrary\HasMedia\HasMedia;
+use Spatie\MediaLibrary\Models\Media;
+use Brackets\Media\HasMedia\HasMediaThumbsTrait;
+
+
+
+
 
 /**
  * @property integer $id
@@ -34,15 +44,75 @@ use Illuminate\Database\Eloquent\Model;
  * @property ApplicantQuestionnaire[] $applicantQuestionnaires
  * @property ApplicantStatus[] $applicantStatuses
  */
-class Applicant extends Model
+class Applicant extends Model implements HasMedia 
 {
+
+    use ProcessMediaTrait;
+    use AutoProcessMediaTrait;
+    use HasMediaCollectionsTrait;  
+    
+    use HasMediaThumbsTrait;
+   
+    
+    
+
+    protected $keyType = 'integer';
     /**
      * The "type" of the auto-incrementing ID.
      *
      * @var string
      */
-    protected $keyType = 'integer';
+    public function registerMediaCollections() {
+        $this->addMediaCollection('documents')
+            ->maxNumberOfFiles(20); // Set the file count limit
+            //->addRemoveLinks(false); // Set the file count limit
+    }
+      /**
+     * Get url of avatar image
+     *
+     * @return string|null
+     */
+    public function getAvatarThumbUrlAttribute(): ?string
+    {
+        return $this->getFirstMediaUrl('avatar', 'thumb_150') ?: null;
+    }
 
+    public function registerMediaConversions(Media $media = null)
+    {
+        $this->autoRegisterThumb200();
+
+        $this->addMediaConversion('thumb_75')
+            ->width(75)
+            ->height(75)
+            ->fit('crop', 75, 75)
+            ->optimize()
+            ->performOnCollections('avatar')
+            ->nonQueued();
+
+        $this->addMediaConversion('thumb_150')
+            ->width(150)
+            ->height(150)
+            ->fit('crop', 150, 150)
+            ->optimize()
+            ->performOnCollections('avatar')
+            ->nonQueued();
+    }
+
+    /**
+     * Auto register thumb overridden
+     */
+    public function autoRegisterThumb200()
+    {
+        $this->getMediaCollections()->filter->isImage()->each(function ($mediaCollection) {
+            $this->addMediaConversion('thumb_200')
+                ->width(200)
+                ->height(200)
+                ->fit('crop', 200, 200)
+                ->optimize()
+                ->performOnCollections($mediaCollection->getName())
+                ->nonQueued();
+        });
+    }
     /**
      * @var array
      */
@@ -133,7 +203,7 @@ class Applicant extends Model
     /* ************************ ACCESSOR ************************* */
 
     public function getResourceUrlAttribute() {
-        return url('/admin/view-perfiles-empresas/'.$this->getKey());
+        return url('/admin/applicants/'.$this->getKey());
     }
 
 }

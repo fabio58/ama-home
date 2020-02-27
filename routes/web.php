@@ -184,10 +184,15 @@ Route::middleware(['auth:' . config('admin-auth.defaults.guard'), 'admin'])->gro
 Route::middleware(['auth:' . config('admin-auth.defaults.guard'), 'admin'])->group(static function () {
     Route::prefix('admin')->namespace('Admin')->name('admin/')->group(static function() {
         Route::prefix('applicants')->name('applicants/')->group(static function() {
+            
             Route::get('/',                                             'ApplicantsController@index')->name('index');
+            Route::get('/viewatc',                                      'ApplicantsController@viewatc')->name('viewatc');
             Route::get('/create',                                       'ApplicantsController@create')->name('create');
+            Route::get('/find',                                         'ApplicantsController@find')->name('find');
             Route::post('/',                                            'ApplicantsController@store')->name('store');
             Route::get('/{applicant}/edit',                             'ApplicantsController@edit')->name('edit');
+            Route::get('/{applicant}/show',                             'ApplicantsController@show')->name('show');
+            Route::get('/{applicant}/documentsatc',                     'ApplicantsController@documentsatc')->name('documentsatc');
             Route::post('/bulk-destroy',                                'ApplicantsController@bulkDestroy')->name('bulk-destroy');
             Route::post('/{applicant}',                                 'ApplicantsController@update')->name('update');
             Route::delete('/{applicant}',                               'ApplicantsController@destroy')->name('destroy');
@@ -206,6 +211,38 @@ Route::middleware(['auth:' . config('admin-auth.defaults.guard'), 'admin'])->gro
             Route::post('/bulk-destroy',                                'QuestionnaireTemplatesController@bulkDestroy')->name('bulk-destroy');
             Route::post('/{questionnaireTemplate}',                     'QuestionnaireTemplatesController@update')->name('update');
             Route::delete('/{questionnaireTemplate}',                   'QuestionnaireTemplatesController@destroy')->name('destroy');
+        });
+    });
+});
+
+
+/* Auto-generated admin routes */
+Route::middleware(['auth:' . config('admin-auth.defaults.guard'), 'admin'])->group(static function () {
+    Route::prefix('admin')->namespace('Admin')->name('admin/')->group(static function() {
+        Route::prefix('applicant-statuses')->name('applicant-statuses/')->group(static function() {
+            Route::get('/',                                             'ApplicantStatusesController@index')->name('index');
+            Route::get('/create',                                       'ApplicantStatusesController@create')->name('create');
+            Route::get('/find',                                         'ApplicantStatusesController@find')->name('find');
+            Route::post('/',                                            'ApplicantStatusesController@store')->name('store');
+            Route::get('/{applicantStatus}/edit',                       'ApplicantStatusesController@edit')->name('edit');
+            Route::post('/bulk-destroy',                                'ApplicantStatusesController@bulkDestroy')->name('bulk-destroy');
+            Route::post('/{applicantStatus}',                           'ApplicantStatusesController@update')->name('update');
+            Route::delete('/{applicantStatus}',                         'ApplicantStatusesController@destroy')->name('destroy');
+        });
+    });
+});
+
+/* Auto-generated admin routes */
+Route::middleware(['auth:' . config('admin-auth.defaults.guard'), 'admin'])->group(static function () {
+    Route::prefix('admin')->namespace('Admin')->name('admin/')->group(static function() {
+        Route::prefix('applicant-documents')->name('applicant-documents/')->group(static function() {
+            Route::get('/',                                             'ApplicantDocumentsController@index')->name('index');
+            Route::get('/{applicant}/create',                           'ApplicantDocumentsController@create')->name('create');
+            Route::post('/',                                            'ApplicantDocumentsController@store')->name('store');
+            Route::get('/{applicantDocument}/edit',                     'ApplicantDocumentsController@edit')->name('edit');
+            Route::post('/bulk-destroy',                                'ApplicantDocumentsController@bulkDestroy')->name('bulk-destroy');
+            Route::post('/{applicantDocument}',                         'ApplicantDocumentsController@update')->name('update');
+            Route::delete('/{applicantDocument}',                       'ApplicantDocumentsController@destroy')->name('destroy');
         });
     });
 });

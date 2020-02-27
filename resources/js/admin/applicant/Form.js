@@ -31,12 +31,12 @@ Vue.component('applicant-form', {
                 },
                 contact: {
                     id: '',
-                    description: '',
-                },
+                }
             },
             diseases: [],
             disabilities: [],
             contacts: [],
+            mediaCollections: ['documents']
         }
     },
     mounted: function () {
@@ -63,11 +63,14 @@ Vue.component('applicant-form', {
 
     }
 
+
+
+
+
     ,
     methods: {
         addNewDisease: function () {
-            this.diseases.push(Vue.util.extend({}, this.form.disease));
-            console.log(this.diseases);
+            this.diseases.push(Vue.util.extend({}, this.form.disease))
         },
         deleteDisease: function (index) {
             Vue.delete(this.diseases, index);

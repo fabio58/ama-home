@@ -12,3 +12,4 @@ import './questionnaire-type';
 import './applicant-relationship';
 import './applicant';
 import './questionnaire-template';
+import './applicant-document';

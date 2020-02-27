@@ -143,3 +143,30 @@ $factory->define(App\Models\QuestionnaireTemplate::class, static function (Faker
         
     ];
 });
+/** @var  \Illuminate\Database\Eloquent\Factory $factory */
+$factory->define(App\Models\ApplicantStatus::class, static function (Faker\Generator $faker) {
+    return [
+        'applicant_id' => $faker->sentence,
+        'status_id' => $faker->sentence,
+        'file_number' => $faker->sentence,
+        'financial_entity_id' => $faker->sentence,
+        'atc_id' => $faker->sentence,
+        'entity_id' => $faker->sentence,
+        'user_id' => $faker->randomNumber(5),
+        'created_at' => $faker->dateTime,
+        'updated_at' => $faker->dateTime,
+        
+        
+    ];
+});
+/** @var  \Illuminate\Database\Eloquent\Factory $factory */
+$factory->define(App\Models\ApplicantDocument::class, static function (Faker\Generator $faker) {
+    return [
+        'applicant_id' => $faker->sentence,
+        'document_id' => $faker->sentence,
+        'created_at' => $faker->dateTime,
+        'updated_at' => $faker->dateTime,
+        
+        
+    ];
+});

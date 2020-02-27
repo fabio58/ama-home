@@ -4,7 +4,11 @@
             <li class="nav-title">{{ trans('brackets/admin-ui::admin.sidebar.content') }}</li>
 
             <li class="nav-item"><a class="nav-link" href="{{ url('admin/applicants') }}"><i class="nav-icon fa fa-plus-circle"></i> {{ trans('admin.applicant.title') }}</a></li>
+            {{-- <li class="nav-title">{{ trans('brackets/admin-ui::admin.sidebar.atc') }}</li> --}}
+            <li class="nav-item"><a class="nav-link" href="{{ url('admin/applicants/viewatc') }}"><i class="nav-icon fa fa-plus-circle"></i> {{ trans('admin.applicant.viewatc') }}</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ url('admin/applicants/find') }}"><i class="nav-icon fa fa-plus-circle"></i> {{ trans('admin.applicant.find') }}</a></li>
 
+           <li class="nav-item"><a class="nav-link" href="{{ url('admin/applicant-documents') }}"><i class="nav-icon icon-ghost"></i> {{ trans('admin.applicant-document.title') }}</a></li>
            {{-- Do not delete me :) I'm used for auto-generation menu items --}}
 
             <li class="nav-title">{{ trans('brackets/admin-ui::admin.sidebar.settings') }}</li>
@@ -14,7 +18,6 @@
                     <i class="nav-icon fa fa-cogs"></i> {{ trans('admin.sidebar.settings.general') }}
                 </a>
                 <ul class="nav-dropdown-items">
-
                     <li class="nav-item"><a class="nav-link" href="{{ url('admin/states') }}"><i class="nav-icon fa fa-globe"></i> {{ trans('admin.state.title') }}</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ url('admin/cities') }}"><i class="nav-icon fa fa-building"></i> {{ trans('admin.city.title') }}</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ url('admin/contact-methods') }}"><i class="nav-icon fa fa-compress"></i> {{ trans('admin.contact-method.title') }}</a></li>

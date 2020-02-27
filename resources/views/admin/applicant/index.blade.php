@@ -52,21 +52,21 @@
                                         <th is='sortable' :column="'id'">{{ trans('admin.applicant.columns.id') }}</th>
                                         <th is='sortable' :column="'names'">{{ trans('admin.applicant.columns.names') }}</th>
                                         <th is='sortable' :column="'last_names'">{{ trans('admin.applicant.columns.last_names') }}</th>
-                                        <th is='sortable' :column="'birthdate'">{{ trans('admin.applicant.columns.birthdate') }}</th>
-                                        <th is='sortable' :column="'gender'">{{ trans('admin.applicant.columns.gender') }}</th>
+                                        <th is='sortable' :column="'government_id'">{{ trans('admin.applicant.columns.government_id') }}</th>
                                         <th is='sortable' :column="'state_id'">{{ trans('admin.applicant.columns.state_id') }}</th>
                                         <th is='sortable' :column="'city_id'">{{ trans('admin.applicant.columns.city_id') }}</th>
-                                        <th is='sortable' :column="'education_level'">{{ trans('admin.applicant.columns.education_level') }}</th>
-                                        <th is='sortable' :column="'government_id'">{{ trans('admin.applicant.columns.government_id') }}</th>
                                         <th is='sortable' :column="'marital_status'">{{ trans('admin.applicant.columns.marital_status') }}</th>
+                                        <th is='sortable' :column="'monthly_income'">{{ trans('admin.applicant.columns.monthly_income') }}</th>
+                                       
+                                        {{-- <th is='sortable' :column="'gender'">{{ trans('admin.applicant.columns.gender') }}</th>
+                                        <th is='sortable' :column="'education_level'">{{ trans('admin.applicant.columns.education_level') }}</th>
                                         <th is='sortable' :column="'pregnant'">{{ trans('admin.applicant.columns.pregnant') }}</th>
                                         <th is='sortable' :column="'pregnancy_due_date'">{{ trans('admin.applicant.columns.pregnancy_due_date') }}</th>
                                         <th is='sortable' :column="'parent_applicant'">{{ trans('admin.applicant.columns.parent_applicant') }}</th>
                                         <th is='sortable' :column="'applicant_relationship'">{{ trans('admin.applicant.columns.applicant_relationship') }}</th>
                                         <th is='sortable' :column="'cadaster'">{{ trans('admin.applicant.columns.cadaster') }}</th>
                                         <th is='sortable' :column="'property_id'">{{ trans('admin.applicant.columns.property_id') }}</th>
-                                        <th is='sortable' :column="'occupation'">{{ trans('admin.applicant.columns.occupation') }}</th>
-                                        <th is='sortable' :column="'monthly_income'">{{ trans('admin.applicant.columns.monthly_income') }}</th>
+                                        <th is='sortable' :column="'occupation'">{{ trans('admin.applicant.columns.occupation') }}</th> --}}
 
                                         <th></th>
                                     </tr>
@@ -75,9 +75,9 @@
                                             <span class="align-middle font-weight-light text-dark">{{ trans('brackets/admin-ui::admin.listing.selected_items') }} @{{ clickedBulkItemsCount }}.  <a href="#" class="text-primary" @click="onBulkItemsClickedAll('/admin/applicants')" v-if="(clickedBulkItemsCount < pagination.state.total)"> <i class="fa" :class="bulkCheckingAllLoader ? 'fa-spinner' : ''"></i> {{ trans('brackets/admin-ui::admin.listing.check_all_items') }} @{{ pagination.state.total }}</a> <span class="text-primary">|</span> <a
                                                         href="#" class="text-primary" @click="onBulkItemsClickedAllUncheck()">{{ trans('brackets/admin-ui::admin.listing.uncheck_all_items') }}</a>  </span>
 
-                                            <span class="pull-right pr-2">
+                                            {{-- <span class="pull-right pr-2">
                                                 <button class="btn btn-sm btn-danger pr-3 pl-3" @click="bulkDelete('/admin/applicants/bulk-destroy')">{{ trans('brackets/admin-ui::admin.btn.delete') }}</button>
-                                            </span>
+                                            </span> --}}
 
                                         </td>
                                     </tr>
@@ -93,30 +93,33 @@
                                     <td>@{{ item.id }}</td>
                                         <td>@{{ item.names }}</td>
                                         <td>@{{ item.last_names }}</td>
-                                        <td>@{{ item.birthdate | datetime }}</td>
-                                        <td>@{{ item.gender }}</td>
-                                        <td>@{{ item.state_id }}</td>
-                                        <td>@{{ item.city_id }}</td>
-                                        <td>@{{ item.education_level }}</td>
                                         <td>@{{ item.government_id }}</td>
+                                        <td>@{{ item.state.name }}</td>
+                                        <td>@{{ item.city.name }}</td>
                                         <td>@{{ item.marital_status }}</td>
+                                        <td>@{{ item.monthly_income }}</td>
+                                       
+                                        {{-- <td>@{{ item.gender }}</td>
+                                        <td>@{{ item.education_level.name }}</td>
                                         <td>@{{ item.pregnant }}</td>
                                         <td>@{{ item.pregnancy_due_date }}</td>
                                         <td>@{{ item.parent_applicant }}</td>
                                         <td>@{{ item.applicant_relationship }}</td>
                                         <td>@{{ item.cadaster }}</td>
                                         <td>@{{ item.property_id }}</td>
-                                        <td>@{{ item.occupation }}</td>
-                                        <td>@{{ item.monthly_income }}</td>
+                                        <td>@{{ item.occupation }}</td> --}}
                                         
                                         <td>
                                             <div class="row no-gutters">
                                                 <div class="col-auto">
+                                                    <a class="btn btn-sm btn-spinner btn-info" :href="item.resource_url + '/show'" title="{{ trans('brackets/admin-ui::admin.btn.show') }}" role="button"><i class="fa fa-list-ol"></i></a>
+                                                </div>
+                                                <div class="col-auto">
                                                     <a class="btn btn-sm btn-spinner btn-info" :href="item.resource_url + '/edit'" title="{{ trans('brackets/admin-ui::admin.btn.edit') }}" role="button"><i class="fa fa-edit"></i></a>
                                                 </div>
-                                                <form class="col" @submit.prevent="deleteItem(item.resource_url)">
+                                                {{-- <form class="col" @submit.prevent="deleteItem(item.resource_url)">
                                                     <button type="submit" class="btn btn-sm btn-danger" title="{{ trans('brackets/admin-ui::admin.btn.delete') }}"><i class="fa fa-trash-o"></i></button>
-                                                </form>
+                                                </form> --}}
                                             </div>
                                         </td>
                                     </tr>

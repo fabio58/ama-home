@@ -10,8 +10,7 @@
                     <div class="input-group">
 
                         <multiselect
-                            name="form.disabilities[][id]"
-                            v-model="form.disability.id"
+                            v-model="disability.id"
                             :options="disabilitiesselect"
                             :multiple="false"
                             track-by="id"

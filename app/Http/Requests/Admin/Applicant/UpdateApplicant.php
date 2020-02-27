@@ -15,7 +15,8 @@ class UpdateApplicant extends FormRequest
      */
     public function authorize(): bool
     {
-        return Gate::allows('admin.applicant.edit', $this->applicant);
+        return true;
+        //return Gate::allows('admin.applicant.edit', $this->applicant);
     }
 
     /**
@@ -23,28 +24,28 @@ class UpdateApplicant extends FormRequest
      *
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
-        return [
-            'names' => ['nullable', 'string'],
-            'last_names' => ['nullable', 'string'],
-            'birthdate' => ['nullable', 'date'],
-            'gender' => ['nullable', 'string'],
-            'state_id' => ['nullable', 'string'],
-            'city_id' => ['nullable', 'string'],
+         return [
+        //     'names' => ['nullable', 'string'],
+        //     'last_names' => ['nullable', 'string'],
+        //     'birthdate' => ['nullable', 'date'],
+        //     'gender' => ['nullable', 'string'],
+        //     'state_id' => ['nullable', 'string'],
+        //     'city_id' => ['nullable', 'string'],
             'education_level' => ['required'],
-            'government_id' => ['nullable', 'string'],
-            'marital_status' => ['nullable', 'string'],
-            'pregnant' => ['nullable', 'boolean'],
-            'pregnancy_due_date' => ['nullable', 'string'],
-            'parent_applicant' => ['nullable', 'string'],
-            'applicant_relationship' => ['nullable', 'string'],
-            'cadaster' => ['nullable', 'string'],
-            'property_id' => ['nullable', 'string'],
-            'occupation' => ['nullable', 'string'],
-            'monthly_income' => ['nullable', 'numeric'],
+        //     'government_id' => ['nullable', 'string'],
+        //     'marital_status' => ['nullable', 'string'],
+        //     'pregnant' => ['nullable', 'boolean'],
+        //     'pregnancy_due_date' => ['nullable', 'string'],
+        //     'parent_applicant' => ['nullable', 'string'],
+        //     'applicant_relationship' => ['nullable', 'string'],
+        //     'cadaster' => ['nullable', 'string'],
+        //     'property_id' => ['nullable', 'string'],
+        //     'occupation' => ['nullable', 'string'],
+        //     'monthly_income' => ['nullable', 'numeric'],
 
-        ];
+         ];
     }
 
     /**
@@ -69,4 +70,7 @@ class UpdateApplicant extends FormRequest
         }
         return null;
     }
+
+
+
 }

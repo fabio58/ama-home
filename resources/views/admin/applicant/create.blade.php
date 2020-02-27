@@ -27,7 +27,7 @@
                                 @include('admin.applicant.components.form-elements')
                             </div>
                         </div>
-                    </div>0
+                    </div>
                 </div>
 
                 <div class="row">
@@ -38,11 +38,7 @@
                         @include('admin.applicant.components.form-elements-disabilities')
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-sm-12">
-                        @include('admin.applicant.components.form-elements-contact-methods')
-                    </div>
-                </div>
+             
 
                 <div class="card">
                     <div class="card-footer">

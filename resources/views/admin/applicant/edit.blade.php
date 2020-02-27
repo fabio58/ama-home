@@ -13,7 +13,7 @@
                 :diseaselist='[ ]'
                 :disabilitylist='[ ]'
                 :contactlist='[ ]'
-                :diseaseselect="{{$diseaseSelect->toJson()}}"
+                :diseaseselect="{{$diseases->toJson()}}"
                 :educationlevels="{{$educationLevels->toJson()}}"
 
                 :disabilitiesselect="{{$disabilities->toJson()}}"
@@ -31,7 +31,11 @@
                     <div class="card-body">
                         @include('admin.applicant.components.form-elements')
                     </div>
-
+                    @include('brackets/admin-ui::admin.includes.media-uploader', [
+                        'mediaCollection' => app(App\Models\Applicant::class)->getMediaCollection('documents'),
+                       // 'media' => $applicant->getThumbs200ForCollection('documents'),
+                        'label' => 'Documentos'
+                    ])
 
                     <div class="card-footer">
                         <button type="submit" class="btn btn-primary" :disabled="submiting">
