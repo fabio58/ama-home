@@ -112421,6 +112421,140 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/admin/applicant-answer/Form.js":
+/*!*****************************************************!*\
+  !*** ./resources/js/admin/applicant-answer/Form.js ***!
+  \*****************************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _app_components_Form_AppForm__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../app-components/Form/AppForm */ "./resources/js/admin/app-components/Form/AppForm.js");
+
+Vue.component('applicant-answer-form', {
+  mixins: [_app_components_Form_AppForm__WEBPACK_IMPORTED_MODULE_0__["default"]],
+  props: ['templa', 'questions'],
+  data: function data() {
+    return {
+      form: {
+        applicant_questionnaire_id: '',
+        template1: '',
+        template2: '',
+        template3: '',
+        template4: '',
+        template5: '',
+        template6: '',
+        template7: '',
+        template8: '',
+        // answer:  '' ,
+        // extended_value:  '' ,
+        question_id: '',
+        q1: '',
+        q2: '',
+        q3: '',
+        q4: '',
+        q5: '',
+        q6: '',
+        q7: '',
+        q8: '',
+        q1_text: '',
+        q2_text: '',
+        q3_text: '',
+        q4_text: '',
+        q5_text: '',
+        q6_text: '',
+        q7_text: '',
+        q8_text: ''
+      },
+      question_id: []
+    };
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    setTimeout(function () {
+      // this.record.email = 'example@email.com'
+      _this.form.applicant_questionnaire_id = _this.templa[0]['quiestionnaire_template_id']; //  console.log(this.questions);
+      // for(var key in json)
+
+      for (var i in _this.questions) {
+        var id = _this.questions[i]['id'];
+
+        if (id == 1) {
+          _this.form.template1 = _this.questions[i]['id'];
+        }
+
+        if (id == 2) {
+          _this.form.template2 = _this.questions[i]['id'];
+        }
+
+        if (id == 3) {
+          _this.form.template3 = _this.questions[i]['id'];
+        }
+
+        if (id == 4) {
+          _this.form.template4 = _this.questions[i]['id'];
+        }
+
+        if (id == 5) {
+          _this.form.template5 = _this.questions[i]['id'];
+        }
+
+        if (id == 6) {
+          _this.form.template6 = _this.questions[i]['id'];
+        }
+
+        if (id == 7) {
+          _this.form.template7 = _this.questions[i]['id'];
+        }
+
+        if (id == 8) {
+          _this.form.template8 = _this.questions[i]['id'];
+        }
+      }
+    }, 500); // if(typeof this.templates !== 'undefined') {
+    //     this.applicant_questionnaire_id = this.templates.question_id;
+    //     console.log(form.applicant_questionnaire_id);
+    // }
+  }
+});
+
+/***/ }),
+
+/***/ "./resources/js/admin/applicant-answer/Listing.js":
+/*!********************************************************!*\
+  !*** ./resources/js/admin/applicant-answer/Listing.js ***!
+  \********************************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _app_components_Listing_AppListing__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../app-components/Listing/AppListing */ "./resources/js/admin/app-components/Listing/AppListing.js");
+
+Vue.component('applicant-answer-listing', {
+  mixins: [_app_components_Listing_AppListing__WEBPACK_IMPORTED_MODULE_0__["default"]]
+});
+
+/***/ }),
+
+/***/ "./resources/js/admin/applicant-answer/index.js":
+/*!******************************************************!*\
+  !*** ./resources/js/admin/applicant-answer/index.js ***!
+  \******************************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Listing__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Listing */ "./resources/js/admin/applicant-answer/Listing.js");
+/* harmony import */ var _Form__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Form */ "./resources/js/admin/applicant-answer/Form.js");
+
+
+
+/***/ }),
+
 /***/ "./resources/js/admin/applicant-document/Form.js":
 /*!*******************************************************!*\
   !*** ./resources/js/admin/applicant-document/Form.js ***!
@@ -113035,6 +113169,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _applicant__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./applicant */ "./resources/js/admin/applicant/index.js");
 /* harmony import */ var _questionnaire_template__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./questionnaire-template */ "./resources/js/admin/questionnaire-template/index.js");
 /* harmony import */ var _applicant_document__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./applicant-document */ "./resources/js/admin/applicant-document/index.js");
+/* harmony import */ var _applicant_answer__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./applicant-answer */ "./resources/js/admin/applicant-answer/index.js");
+
 
 
 
@@ -113392,7 +113528,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\ama-UP\ama\resources\js\admin\admin.js */"./resources/js/admin/admin.js");
+module.exports = __webpack_require__(/*! C:\laragon\www\ama-home\resources\js\admin\admin.js */"./resources/js/admin/admin.js");
 
 
 /***/ })

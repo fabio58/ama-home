@@ -39,7 +39,7 @@ class ApplicantQuestionnaire extends Model
      */
     public function questionnaireTemplate()
     {
-        return $this->belongsTo('App\Models\QuestionnaireTemplate', 'quiestionnaire_template_id');
+        return $this->hasOne ('App\Models\QuestionnaireTemplate', 'id','quiestionnaire_template_id');
     }
 
     /**

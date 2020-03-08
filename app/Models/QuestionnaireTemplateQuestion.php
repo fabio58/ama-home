@@ -36,6 +36,6 @@ class QuestionnaireTemplateQuestion extends Model
      */
     public function questionnaireTemplate()
     {
-        return $this->belongsTo('App\Models\QuestionnaireTemplate');
+        return $this->belongsTo('App\Models\QuestionnaireTemplate', 'questionnaire_template_id');
     }
 }

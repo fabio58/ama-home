@@ -9,6 +9,7 @@
             <li class="nav-item"><a class="nav-link" href="{{ url('admin/applicants/find') }}"><i class="nav-icon fa fa-plus-circle"></i> {{ trans('admin.applicant.find') }}</a></li>
 
            <li class="nav-item"><a class="nav-link" href="{{ url('admin/applicant-documents') }}"><i class="nav-icon icon-ghost"></i> {{ trans('admin.applicant-document.title') }}</a></li>
+           <li class="nav-item"><a class="nav-link" href="{{ url('admin/applicant-answers') }}"><i class="nav-icon icon-ghost"></i> {{ trans('admin.applicant-answer.title') }}</a></li>
            {{-- Do not delete me :) I'm used for auto-generation menu items --}}
 
             <li class="nav-title">{{ trans('brackets/admin-ui::admin.sidebar.settings') }}</li>

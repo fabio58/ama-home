@@ -170,3 +170,16 @@ $factory->define(App\Models\ApplicantDocument::class, static function (Faker\Gen
         
     ];
 });
+/** @var  \Illuminate\Database\Eloquent\Factory $factory */
+$factory->define(App\Models\ApplicantAnswer::class, static function (Faker\Generator $faker) {
+    return [
+        'applicant_questionnaire_id' => $faker->sentence,
+        'answer' => $faker->sentence,
+        'extended_value' => $faker->sentence,
+        'created_at' => $faker->dateTime,
+        'updated_at' => $faker->dateTime,
+        'question_id' => $faker->sentence,
+        
+        
+    ];
+});

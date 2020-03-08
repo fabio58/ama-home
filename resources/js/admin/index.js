@@ -13,3 +13,4 @@ import './applicant-relationship';
 import './applicant';
 import './questionnaire-template';
 import './applicant-document';
+import './applicant-answer';

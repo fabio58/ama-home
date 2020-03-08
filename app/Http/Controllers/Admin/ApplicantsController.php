@@ -124,7 +124,7 @@ class ApplicantsController extends Controller
                 if($request->has('educationlevels')){
                     $query->whereIn('education_level', $request->get('educationlevels'));
                 }
-            },
+            }
 
          
         );
