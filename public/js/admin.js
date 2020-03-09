@@ -112466,8 +112466,7 @@ Vue.component('applicant-answer-form', {
         q6_text: '',
         q7_text: '',
         q8_text: ''
-      },
-      question_id: []
+      }
     };
   },
   mounted: function mounted() {
@@ -112475,8 +112474,7 @@ Vue.component('applicant-answer-form', {
 
     setTimeout(function () {
       // this.record.email = 'example@email.com'
-      _this.form.applicant_questionnaire_id = _this.templa[0]['quiestionnaire_template_id']; //  console.log(this.questions);
-      // for(var key in json)
+      _this.form.applicant_questionnaire_id = _this.templa[0]['quiestionnaire_template_id']; // for(var key in json)
 
       for (var i in _this.questions) {
         var id = _this.questions[i]['id'];

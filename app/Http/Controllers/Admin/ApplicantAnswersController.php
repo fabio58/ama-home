@@ -69,23 +69,28 @@ class ApplicantAnswersController extends Controller
     {
         $this->authorize('admin.applicant-answer.create');
         
-      
         // $questions=ApplicantQuestionnaire::with('questionnaireTemplate', 'QuestionnaireTemplate.questionnaireTemplateQuestions')
         // ->get()
         // ->toArray();
         $templateCampos=ApplicantQuestionnaire::with('questionnaireTemplate', 'QuestionnaireTemplate.questionnaireTemplateQuestions')
         ->get();
 
-
         $template=ApplicantQuestionnaire::find($applicant->id)
         ->get('quiestionnaire_template_id')
-       ->pluck('quiestionnaire_template_id')
-      ;
-         //return $template;
+       ->pluck('quiestionnaire_template_id');
+         
          
          $questions=QuestionnaireTemplateQuestion::where('questionnaire_template_id', '=', $template )->get();
-         //return $questions;
-        
+        $preguntas=ApplicantQuestionnaire::where('applicant_id', '=', $applicant->id )->get()->pluck('id');
+        // return $preguntas;
+        $control=ApplicantAnswer::where('applicant_questionnaire_id', '=', $preguntas)->get()->toArray();
+        // return ($control);
+         if(count($control)>0){
+            // return ['redirect' => url('admin/applicant-answer/show')];
+             return redirect('admin/applicant-answers/'.$control[0]['applicant_questionnaire_id'].'/show');
+         
+         } 
+
         return view('admin.applicant-answer.create', compact('ApplicantAnswer','questions', 'applicant', 'template', 'templateCampos'));
     }
 
@@ -97,15 +102,31 @@ class ApplicantAnswersController extends Controller
      */
     public function store(StoreApplicantAnswer $request)
     {
-        return $request;
-        // Sanitize input
-        $sanitized = $request->getSanitized();
+        //return $request;
+        $allorders = QuestionnaireTemplateQuestion::where('questionnaire_template_id', '=', $request->applicant_questionnaire_id )->get();
+        //   return count($allorders);
+            for($i = 1;$i<=count($allorders);$i++) {
+    
+                $var= "template".$i;
+                $var2= "q".$i."_text";
+                $var1= "q".$i;
+                // return $items->id;
+                $sanitized = $request->getSanitized();
+                $sanitized['applicant_questionnaire_id'] = $request->applicant_questionnaire_id;
+                $sanitized['answer'] = $request->$var1;
+                $sanitized['extended_value'] = $request->$var2;
+                $sanitized['question_id'] = $request->$var;
+                //  return $sanitized;
+                // Store the ApplicantAnswer
+                // exit();
+                $applicantAnswer = ApplicantAnswer::create($sanitized); 
 
-        // Store the ApplicantAnswer
-        $applicantAnswer = ApplicantAnswer::create($sanitized);
-
+                
+            }
+   
+        
         if ($request->ajax()) {
-            return ['redirect' => url('admin/applicant-answers'), 'message' => trans('brackets/admin-ui::admin.operation.succeeded')];
+            return ['redirect' => url('admin/applicant'), 'message' => trans('brackets/admin-ui::admin.operation.succeeded')];
         }
 
         return redirect('admin/applicant-answers');
@@ -118,7 +139,7 @@ class ApplicantAnswersController extends Controller
      * @throws AuthorizationException
      * @return void
      */
-    public function show(ApplicantAnswer $applicantAnswer)
+    public function show(ApplicantAnswer $applicantAnswer, ApplicantQuestionnaire $applicantQuestionnaire)
     {
         $this->authorize('admin.applicant-answer.show', $applicantAnswer);
 

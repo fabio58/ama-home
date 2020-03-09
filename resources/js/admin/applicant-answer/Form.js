@@ -35,14 +35,14 @@ Vue.component('applicant-answer-form', {
                 q7_text:'',
                 q8_text:'',  
             },
-            question_id:[]
+           
         }
     },
     mounted: function () {
         setTimeout(() => {
             // this.record.email = 'example@email.com'
             this.form.applicant_questionnaire_id=this.templa[0]['quiestionnaire_template_id']
-            //  console.log(this.questions);
+           
            // for(var key in json)
             for (var i in this.questions)
             {
