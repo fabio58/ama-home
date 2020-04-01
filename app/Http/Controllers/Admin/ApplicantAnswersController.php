@@ -65,33 +65,37 @@ class ApplicantAnswersController extends Controller
      * @throws AuthorizationException
      * @return Factory|View
      */
-    public function create(ApplicantAnswer $ApplicantAnswer, Applicant $applicant)
+    public function create(Applicant $applicant, ApplicantQuestionnaire $ApplicantQuestionnaire)
     {
         $this->authorize('admin.applicant-answer.create');
-        
-        // $questions=ApplicantQuestionnaire::with('questionnaireTemplate', 'QuestionnaireTemplate.questionnaireTemplateQuestions')
-        // ->get()
-        // ->toArray();
-        $templateCampos=ApplicantQuestionnaire::with('questionnaireTemplate', 'QuestionnaireTemplate.questionnaireTemplateQuestions')
-        ->get();
+        $preguntas=ApplicantQuestionnaire::where('applicant_id', $applicant->id )->with('ApplicantAnswers')->get()->pluck('id');
+        // return ($preguntas);
+        if(count($preguntas)>0){
+            $control=ApplicantAnswer::whereIn('applicant_questionnaire_id',$preguntas)->get('applicant_questionnaire_id');
+            //return $control;
+                if($control->count()>0){
+                    return redirect('admin/applicant-answers/'.$control[0]['applicant_questionnaire_id'].'/'.$applicant->id.'/show');
+                } 
+         }else{
+            $applicantQuestionnaire = new ApplicantQuestionnaire;
+            $applicantQuestionnaire->applicant_id = $applicant->id;
+            $applicantQuestionnaire->quiestionnaire_template_id = 1;
+            $applicantQuestionnaire->save();
+         }
 
-        $template=ApplicantQuestionnaire::find($applicant->id)
-        ->get('quiestionnaire_template_id')
-       ->pluck('quiestionnaire_template_id');
-         
+        $templateCampos=ApplicantQuestionnaire::where('applicant_id', $applicant->id)->with('questionnaireTemplate', 'QuestionnaireTemplate.questionnaireTemplateQuestions')
+        ->get();
+        //  return $templateCampos;
+
+        $template=ApplicantQuestionnaire::where('applicant_id', $applicant->id)
+         ->get('quiestionnaire_template_id')
+         ->pluck('quiestionnaire_template_id')->first();
+        
+        //return ($template);
          
          $questions=QuestionnaireTemplateQuestion::where('questionnaire_template_id', '=', $template )->get();
-        $preguntas=ApplicantQuestionnaire::where('applicant_id', '=', $applicant->id )->get()->pluck('id');
-        // return $preguntas;
-        $control=ApplicantAnswer::where('applicant_questionnaire_id', '=', $preguntas)->get()->toArray();
-        // return ($control);
-         if(count($control)>0){
-            // return ['redirect' => url('admin/applicant-answer/show')];
-             return redirect('admin/applicant-answers/'.$control[0]['applicant_questionnaire_id'].'/show');
-         
-         } 
 
-        return view('admin.applicant-answer.create', compact('ApplicantAnswer','questions', 'applicant', 'template', 'templateCampos'));
+        return view('admin.applicant-answer.create', compact('questions', 'applicant', 'template', 'templateCampos'));
     }
 
     /**
@@ -102,31 +106,28 @@ class ApplicantAnswersController extends Controller
      */
     public function store(StoreApplicantAnswer $request)
     {
-        //return $request;
-        $allorders = QuestionnaireTemplateQuestion::where('questionnaire_template_id', '=', $request->applicant_questionnaire_id )->get();
-        //   return count($allorders);
+         //return $request;
+        $allorders = QuestionnaireTemplateQuestion::where('questionnaire_template_id', '=', 1 )->get(); //Id para template de sociales
+         //return count($allorders);
             for($i = 1;$i<=count($allorders);$i++) {
     
                 $var= "template".$i;
                 $var2= "q".$i."_text";
                 $var1= "q".$i;
-                // return $items->id;
+                ///return $request->$var;
                 $sanitized = $request->getSanitized();
                 $sanitized['applicant_questionnaire_id'] = $request->applicant_questionnaire_id;
                 $sanitized['answer'] = $request->$var1;
                 $sanitized['extended_value'] = $request->$var2;
                 $sanitized['question_id'] = $request->$var;
-                //  return $sanitized;
                 // Store the ApplicantAnswer
-                // exit();
                 $applicantAnswer = ApplicantAnswer::create($sanitized); 
-
-                
+                //print_r($applicantAnswer );
             }
-   
+            
         
         if ($request->ajax()) {
-            return ['redirect' => url('admin/applicant'), 'message' => trans('brackets/admin-ui::admin.operation.succeeded')];
+            return ['redirect' => url('admin/applicants'), 'message' => trans('brackets/admin-ui::admin.operation.succeeded')];
         }
 
         return redirect('admin/applicant-answers');
@@ -139,11 +140,17 @@ class ApplicantAnswersController extends Controller
      * @throws AuthorizationException
      * @return void
      */
-    public function show(ApplicantAnswer $applicantAnswer, ApplicantQuestionnaire $applicantQuestionnaire)
+    public function show( ApplicantQuestionnaire $applicantQuestionnaire, Applicant $applicant)
     {
-        $this->authorize('admin.applicant-answer.show', $applicantAnswer);
+        $this->authorize('admin.applicant-answer.show');
 
-        // TODO your code goes here
+        $values= ApplicantAnswer::whereIn('applicant_questionnaire_id', [$applicantQuestionnaire->id])->with('QuestionnaireTemplateQuestions')->get()->toArray();
+        //dd($values);
+        return view('admin.applicant-answer.show'
+     , compact( 'applicant', 'values')
+    );
+
+        
     }
 
     /**

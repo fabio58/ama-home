@@ -9,9 +9,15 @@ use App\Http\Requests\Admin\ApplicantDocument\IndexApplicantDocument;
 use App\Http\Requests\Admin\ApplicantDocument\StoreApplicantDocument;
 use App\Http\Requests\Admin\ApplicantDocument\UpdateApplicantDocument;
 use App\Models\ApplicantDocument;
+use App\Models\Media;
 use Brackets\AdminListing\Facades\AdminListing;
 use Exception;
 use App\Models\Applicant;
+use App\Models\ApplicantDisability;
+use App\Models\ApplicantDisease;
+use App\Models\ApplicantRelationship;
+use App\Models\DocumentType;
+use App\Models\Nationality;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Contracts\View\Factory;
@@ -62,14 +68,65 @@ class ApplicantDocumentsController extends Controller
      * @throws AuthorizationException
      * @return Factory|View
      */
-    public function create(Applicant $Applicant)
+    public function create(Applicant $Applicant, ApplicantDocument $applicantDocument, $type)
     {
         //return $Applicant;
-        $applicant=Applicant::all();
-        //$disabilitySelect = Disability::all();
+        //TODOS LOS DOCUMENTOS
         $this->authorize('admin.applicant-document.create');
+        $type = ($type==1) ? "S":"T";
+        $applicantDocuments = ApplicantDocument::where('applicant_id',$Applicant->id)->get()->pluck('document_id')->toArray();
+        //ESTADO CIVIL
+        $condition=$Applicant->marital_status;
+         $options=DocumentType::whereIn('condition_value', [$condition])
+        ->where('condition_column','=', 'marital_status');
+        //return $options;
+        //EMBARAZO
+        $pregnantApplicant=$Applicant->pregnant;
+        $pregnantType = ($pregnantApplicant==true) ? "S":"N";
+        //return($pregnantType);
+        $optionspregnant=DocumentType::whereIn('condition_value', [$pregnantType])
+        ->where('condition_column','=', 'pregnant');
+        //ENFERMEDAD
+        $disabilitiesOption=ApplicantDisease::where('applicant_id','=', $Applicant->id)->get();       
+        $disabilitiesVal = ($disabilitiesOption->count() >= 1) ? "ENF":"";
+        $optionsDis=DocumentType::where('condition_value','=', $disabilitiesVal);
+        //NACIONALIDAD EXTRANJERA
+        $nactionalities= Nationality::where('id','=', $Applicant->nationality_id)->where('name', 'like', 'PARAGUAY%')->get();  
+        $nationalityOption = ($nactionalities->count()>= 1) ? "PY":"";
+        $optionsNationality=DocumentType::where('condition_value','=', $nationalityOption);
+        //DISCAPACIDAD
+        $disabilities= ApplicantDisability::where('applicant_id','=', $Applicant->id)->get();   
+        $disabilityOption = ($disabilities->count()>= 1) ? "DIS":"";
+        $optionsApplicantDisability=DocumentType::where('condition_value','=', $disabilityOption);
+        //HIJO SOSTEN
+        $sosten = ($Applicant->applicant_relationship==2) ? "HS":""; //id en Applicant Relationships
+        $optionsNationality=DocumentType::where('condition_value','=', $sosten );
+        
+        $doctypesSelect = DocumentType::where('type','=', $type)
+        ->whereNotIn('id',$applicantDocuments)
+        ->whereNull('condition_value')
+        ->union($options)
+        ->union($optionspregnant)
+        ->union($optionsDis)
+        ->union($optionsNationality)
+        ->union($optionsApplicantDisability)
+        ->get();
+        //return $doctypesSelect;
 
-        return view('admin.applicant-document.create', ['applicant' => $applicant]);
+
+        $doc = ApplicantDocument::where('applicant_id','=',$Applicant->id)->pluck('id');
+        
+        $documents = Media::whereIn('model_id',$doc)
+        ->with('Media', 'ApplicantDocument.DocumentType')
+        ->get()->toArray();
+        // return($documents);      
+        return view('admin.applicant-document.create', 
+        ['applicant' => $Applicant, 
+        'doctypesSelects'=>$doctypesSelect, 
+        'applicantDocument'=>$applicantDocument,
+        'documents'=>$documents,
+  
+        ]);
     }
 
     /**
@@ -78,19 +135,22 @@ class ApplicantDocumentsController extends Controller
      * @param StoreApplicantDocument $request
      * @return array|RedirectResponse|Redirector
      */
-    public function store(StoreApplicantDocument $request)
+    public function store( StoreApplicantDocument $request)
     {
+        //return $request;
+        //$this->authorize('admin.applicant-document.store' , $request); 
         // Sanitize input
-        $sanitized = $request->getSanitized();
-
+       $sanitized = $request->getSanitized();
+       $sanitized['applicant_id'] = $request->applicant_id;
+       //$sanitized['social'] = $request->social;
         // Store the ApplicantDocument
         $applicantDocument = ApplicantDocument::create($sanitized);
 
         if ($request->ajax()) {
-            return ['redirect' => url('admin/applicant-documents'), 'message' => trans('brackets/admin-ui::admin.operation.succeeded')];
+            return ['redirect' => url('admin/applicant-documents/'.$request->applicant_id.'/2/create'), 'message' => trans('brackets/admin-ui::admin.operation.succeeded')];
         }
 
-        return redirect('admin/applicant-documents');
+        return redirect('admin/applicant-documents/'.$request->applicant_id.'/2/create');
     }
 
     /**

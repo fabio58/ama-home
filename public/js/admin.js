@@ -112449,7 +112449,7 @@ Vue.component('applicant-answer-form', {
         template8: '',
         // answer:  '' ,
         // extended_value:  '' ,
-        question_id: '',
+        // question_id:  '' ,
         q1: '',
         q2: '',
         q3: '',
@@ -112473,48 +112473,46 @@ Vue.component('applicant-answer-form', {
     var _this = this;
 
     setTimeout(function () {
-      // this.record.email = 'example@email.com'
-      _this.form.applicant_questionnaire_id = _this.templa[0]['quiestionnaire_template_id']; // for(var key in json)
+      _this.form.applicant_questionnaire_id = _this.templa[0]['id'];
 
       for (var i in _this.questions) {
         var id = _this.questions[i]['id'];
 
-        if (id == 1) {
-          _this.form.template1 = _this.questions[i]['id'];
-        }
+        switch (id) {
+          case 1:
+            _this.form.template1 = _this.questions[i]['id'];
+            break;
 
-        if (id == 2) {
-          _this.form.template2 = _this.questions[i]['id'];
-        }
+          case 2:
+            _this.form.template2 = _this.questions[i]['id'];
+            break;
 
-        if (id == 3) {
-          _this.form.template3 = _this.questions[i]['id'];
-        }
+          case 3:
+            _this.form.template3 = _this.questions[i]['id'];
+            break;
 
-        if (id == 4) {
-          _this.form.template4 = _this.questions[i]['id'];
-        }
+          case 4:
+            _this.form.template4 = _this.questions[i]['id'];
+            break;
 
-        if (id == 5) {
-          _this.form.template5 = _this.questions[i]['id'];
-        }
+          case 5:
+            _this.form.template5 = _this.questions[i]['id'];
+            break;
 
-        if (id == 6) {
-          _this.form.template6 = _this.questions[i]['id'];
-        }
+          case 6:
+            _this.form.template6 = _this.questions[i]['id'];
+            break;
 
-        if (id == 7) {
-          _this.form.template7 = _this.questions[i]['id'];
-        }
+          case 7:
+            _this.form.template7 = _this.questions[i]['id'];
+            break;
 
-        if (id == 8) {
-          _this.form.template8 = _this.questions[i]['id'];
+          case 8:
+            _this.form.template8 = _this.questions[i]['id'];
+            break;
         }
       }
-    }, 500); // if(typeof this.templates !== 'undefined') {
-    //     this.applicant_questionnaire_id = this.templates.question_id;
-    //     console.log(form.applicant_questionnaire_id);
-    // }
+    }, 500);
   }
 });
 
@@ -112566,13 +112564,24 @@ __webpack_require__.r(__webpack_exports__);
 
 Vue.component('applicant-document-form', {
   mixins: [_app_components_Form_AppForm__WEBPACK_IMPORTED_MODULE_0__["default"]],
+  props: ['applicants'],
   data: function data() {
     return {
       form: {
         applicant_id: '',
         document_id: ''
-      }
+      },
+      doctypesSelects: [],
+      mediaCollections: ['social'],
+      applicant_id: ''
     };
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    setTimeout(function () {
+      _this.form.applicant_id = _this.applicants.id;
+    }, 500);
   }
 });
 
@@ -113526,7 +113535,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\laragon\www\ama-home\resources\js\admin\admin.js */"./resources/js/admin/admin.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\ama-UP\ama\resources\js\admin\admin.js */"./resources/js/admin/admin.js");
 
 
 /***/ })

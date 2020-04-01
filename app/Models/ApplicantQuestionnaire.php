@@ -20,7 +20,7 @@ class ApplicantQuestionnaire extends Model
      * @var string
      */
     protected $keyType = 'integer';
-
+    public $timestamps = false;
     /**
      * @var array
      */
@@ -31,7 +31,7 @@ class ApplicantQuestionnaire extends Model
      */
     public function applicant()
     {
-        return $this->belongsTo('App\Models\Applicant');
+        return $this->belongsTo('App\Models\Applicant', 'applicant_id');
     }
 
     /**
@@ -39,7 +39,7 @@ class ApplicantQuestionnaire extends Model
      */
     public function questionnaireTemplate()
     {
-        return $this->hasOne ('App\Models\QuestionnaireTemplate', 'id','quiestionnaire_template_id');
+        return $this->belongsTo('App\Models\QuestionnaireTemplate', 'quiestionnaire_template_id');
     }
 
     /**
@@ -47,6 +47,6 @@ class ApplicantQuestionnaire extends Model
      */
     public function applicantAnswers()
     {
-        return $this->hasMany('App\Models\ApplicantAnswer');
+        return $this->hasOne('App\Models\ApplicantAnswer', 'applicant_questionnaire_id', 'id');
     }
 }

@@ -15,7 +15,8 @@ class StoreApplicantDocument extends FormRequest
      */
     public function authorize(): bool
     {
-        return Gate::allows('admin.applicant-document.create');
+        return true;
+        // return Gate::allows('admin.applicant-document.create');
     }
 
     /**
@@ -26,8 +27,9 @@ class StoreApplicantDocument extends FormRequest
     public function rules(): array
     {
         return [
-            'applicant_id' => ['nullable', 'string'],
-            'document_id' => ['nullable', 'string'],
+            'applicant_id' => ['nullable'],
+            'document_id' => ['required'],
+           // 'social' => ['nullable', 'string'],
             
         ];
     }
@@ -45,4 +47,6 @@ class StoreApplicantDocument extends FormRequest
 
         return $sanitized;
     }
+
+ 
 }

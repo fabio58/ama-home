@@ -23,7 +23,12 @@
                     <div class="card-body">
                         @include('admin.applicant-document.components.form-elements')
                     </div>
-                    
+                    @include('brackets/admin-ui::admin.includes.media-uploader', [
+                        'mediaCollection' => app(App\Models\ApplicantDocument::class)->getMediaCollection('social'),
+                        'media' => $applicantDocument->getThumbs200ForCollection('social'),
+                        'label' => 'Documentos'
+                    ])
+                
                     
                     <div class="card-footer">
                         <button type="submit" class="btn btn-primary" :disabled="submiting">

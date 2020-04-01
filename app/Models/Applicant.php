@@ -50,7 +50,6 @@ class Applicant extends Model implements HasMedia
     use ProcessMediaTrait;
     use AutoProcessMediaTrait;
     use HasMediaCollectionsTrait;  
-    
     use HasMediaThumbsTrait;
    
     
@@ -187,9 +186,9 @@ class Applicant extends Model implements HasMedia
      */
     public function applicantQuestionnaires()
     {
-        return $this->hasMany('App\Models\ApplicantQuestionnaire');
+        return $this->hasOne('App\Models\ApplicantQuestionnaire','applicant_id', 'id');
     }
-
+ 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */

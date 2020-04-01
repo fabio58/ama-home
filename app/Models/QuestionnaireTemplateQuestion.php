@@ -36,6 +36,14 @@ class QuestionnaireTemplateQuestion extends Model
      */
     public function questionnaireTemplate()
     {
-        return $this->belongsTo('App\Models\QuestionnaireTemplate', 'questionnaire_template_id');
+        return $this->belongsTo('App\Models\QuestionnaireTemplate');
+    }
+    public function applicantAnswers()
+    {
+        return $this->hasOne('App\Models\ApplicantAnswer', 'question_id', 'id' );
+    }
+    public function questionnaireTemplateQuestions()
+    {
+        return $this->hasOne('App\Models\ApplicantAnswer', 'id', 'question_id' );
     }
 }

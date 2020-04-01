@@ -49,15 +49,15 @@ class ApplicantsController extends Controller
         $data = AdminListing::create(Applicant::class)->processRequestAndGet(
             // pass the request with params
             $request,
-            //return $request;
+           
             // set columns to query
             ['id', 'names', 'last_names', 'birthdate', 'gender', 'state_id', 'city_id', 'education_level', 'government_id', 'marital_status', 'pregnant', 'pregnancy_due_date', 'parent_applicant', 'applicant_relationship', 'cadaster', 'property_id', 'occupation', 'monthly_income'],
 
             // set columns to searchIn
             ['id', 'names', 'last_names', 'gender', 'government_id', 'marital_status', 'cadaster', 'property_id', 'occupation'],
-         
             function ($query) use ($request) {
-             
+                //dd($query);
+            //  dd ($request->get('city'));
                 $query->with(['city']);
                 if($request->has('cities')){
                     $query->whereIn('city_id', $request->get('cities'));
@@ -70,11 +70,12 @@ class ApplicantsController extends Controller
                 if($request->has('educationlevels')){
                     $query->whereIn('education_level', $request->get('educationlevels'));
                 }
+                $query->with(['applicant']);
+                if($request->has('monthly_income')){
+                    $query->whereIn('education_level', $request->get('educationlevels'));
+                }
            
-                $query->with(['applicantStatuses']);
-                //  if($request->has('status_id')){
-                //    $query->whereIn('status_id', $request->get('applicantStatuses'));
-                // }
+        
             });
             
         //return $data;
@@ -124,11 +125,15 @@ class ApplicantsController extends Controller
                 if($request->has('educationlevels')){
                     $query->whereIn('education_level', $request->get('educationlevels'));
                 }
+                $query->with(['applicant']);
+                if($request->has('applicants')){
+                    $query->whereIn('parent_applicant', $request->get('applicants'));
+                }
             }
 
          
         );
-        //return $data;
+        //  return $data;
 
         if ($request->ajax()) {
             if ($request->has('bulk')) {
@@ -174,21 +179,17 @@ class ApplicantsController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
-
-       // $this->authorize('admin.applicant.store' , $request); 
+        //dd($request->all());
+        // $this->authorize('admin.applicant.store' , $request); 
         // Sanitize input
         //$sanitized = $request->getSanitized();
-
+        
         $sanitized['education_level'] = $request->getEducationLevelId();
         $sanitized['user_id'] = $request->userId;
         
         //$sanitized['documents'] = $request->documents();
-
         // Store the Applicant
         $applicant = Applicant::create($sanitized);
-
-
 
         if ($request->ajax()) {
             return ['redirect' => url('admin/applicants'), 'message' => trans('brackets/admin-ui::admin.operation.succeeded')];

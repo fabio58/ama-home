@@ -17,7 +17,7 @@ Vue.component('applicant-answer-form', {
                 template8:  '' ,
                 // answer:  '' ,
                 // extended_value:  '' ,
-                question_id:  '' ,
+                // question_id:  '' ,
                 q1:'',
                 q2:'',
                 q3:'',
@@ -39,47 +39,42 @@ Vue.component('applicant-answer-form', {
         }
     },
     mounted: function () {
-        setTimeout(() => {
-            // this.record.email = 'example@email.com'
-            this.form.applicant_questionnaire_id=this.templa[0]['quiestionnaire_template_id']
+        setTimeout(() => { 
            
-           // for(var key in json)
+            this.form.applicant_questionnaire_id=this.templa[0]['id']
             for (var i in this.questions)
-            {
-                var id =this.questions[i]['id']
-                if(id==1){
-                    this.form.template1=this.questions[i]['id']
-                }
-                if(id==2){
-                    this.form.template2=this.questions[i]['id']
-                }
-                if(id==3){
-                    this.form.template3=this.questions[i]['id']
-                }
-                if(id==4){
-                    this.form.template4=this.questions[i]['id']
-                }
-                if(id==5){
-                    this.form.template5=this.questions[i]['id']
-                }
-                if(id==6){
-                    this.form.template6=this.questions[i]['id']
-                }
-                if(id==7){
-                    this.form.template7=this.questions[i]['id']
-                }
-                if(id==8){
-                    this.form.template8=this.questions[i]['id']
-                }
-
+            {  
+                    var id =this.questions[i]['id']
+                    switch (id) {
+                        case 1:
+                                this.form.template1=this.questions[i]['id']
+                                break;
+                          case 2:
+                                this.form.template2=this.questions[i]['id']
+                                break;
+                                
+                          case 3:
+                                this.form.template3=this.questions[i]['id']
+                                break;
+                          case 4:
+                                this.form.template4=this.questions[i]['id']
+                                break;
+                          case 5:
+                                this.form.template5=this.questions[i]['id']
+                                break;
+                          case 6:
+                                this.form.template6=this.questions[i]['id']
+                                break;
+                          case 7:
+                                this.form.template7=this.questions[i]['id']
+                                break;
+                          case 8:
+                                this.form.template8=this.questions[i]['id']
+                                break;
+                    }
             }
           }, 500)
      
-
-        // if(typeof this.templates !== 'undefined') {
-        //     this.applicant_questionnaire_id = this.templates.question_id;
-        //     console.log(form.applicant_questionnaire_id);
-        // }
     }
 
 

@@ -237,7 +237,7 @@ Route::middleware(['auth:' . config('admin-auth.defaults.guard'), 'admin'])->gro
     Route::prefix('admin')->namespace('Admin')->name('admin/')->group(static function() {
         Route::prefix('applicant-documents')->name('applicant-documents/')->group(static function() {
             Route::get('/',                                             'ApplicantDocumentsController@index')->name('index');
-            Route::get('/{applicant}/create',                           'ApplicantDocumentsController@create')->name('create');
+            Route::get('/{applicant}/{type}/create',                           'ApplicantDocumentsController@create')->name('create');
             Route::post('/',                                            'ApplicantDocumentsController@store')->name('store');
             Route::get('/{applicantDocument}/edit',                     'ApplicantDocumentsController@edit')->name('edit');
             Route::post('/bulk-destroy',                                'ApplicantDocumentsController@bulkDestroy')->name('bulk-destroy');
@@ -252,10 +252,10 @@ Route::middleware(['auth:' . config('admin-auth.defaults.guard'), 'admin'])->gro
     Route::prefix('admin')->namespace('Admin')->name('admin/')->group(static function() {
         Route::prefix('applicant-answers')->name('applicant-answers/')->group(static function() {
             Route::get('/',                                             'ApplicantAnswersController@index')->name('index');
-            Route::get('/{applicant}/create',                          'ApplicantAnswersController@create')->name('create');
+            Route::get('/{applicant}/create',                           'ApplicantAnswersController@create')->name('create');
             Route::post('/',                                            'ApplicantAnswersController@store')->name('store');
             Route::get('/{applicantAnswer}/edit',                       'ApplicantAnswersController@edit')->name('edit');
-            Route::get('/{applicantQuestionnaire}/show',                       'ApplicantAnswersController@show')->name('show');
+            Route::get('/{applicantQuestionnaire}/{applicant}/show',    'ApplicantAnswersController@show')->name('show');
             Route::post('/bulk-destroy',                                'ApplicantAnswersController@bulkDestroy')->name('bulk-destroy');
             Route::post('/{applicantAnswer}',                           'ApplicantAnswersController@update')->name('update');
             Route::delete('/{applicantAnswer}',                         'ApplicantAnswersController@destroy')->name('destroy');

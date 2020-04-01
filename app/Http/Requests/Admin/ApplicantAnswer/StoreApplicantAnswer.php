@@ -30,7 +30,7 @@ class StoreApplicantAnswer extends FormRequest
             // 'applicant_questionnaire_id' => ['nullable', 'string'],
             // 'answer' => ['nullable', 'string'],
             // 'extended_value' => ['nullable', 'string'],
-            // 'question_id' => ['nullable', 'string'],
+            // 'question_id' => ['required', 'string'],
             
         ];
     }

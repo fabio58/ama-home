@@ -115,7 +115,7 @@
                                                     <a class="btn btn-sm btn-spinner btn-info" :href="item.resource_url + '/show'" title="{{ trans('brackets/admin-ui::admin.btn.show') }}" role="button"><i class="fa fa-list-ol"></i></a>
                                                 </div> --}}
                                                 <div class="col-auto">
-                                                <a class="btn btn-sm btn-spinner btn-info" :href="'/admin/applicant-documents/'+item.id+'/create'" title="{{ trans('brackets/admin-ui::admin.btn.documentsatc') }}" role="button"><i class="fa fa-file-o"></i></a>
+                                                <a class="btn btn-sm btn-spinner btn-info" :href="'/admin/applicant-documents/'+item.id+'/2/create'" title="{{ trans('brackets/admin-ui::admin.btn.documentsatc') }}" role="button"><i class="fa fa-file-o"></i></a>
                                                 </div>
                                                 {{-- <form class="col" @submit.prevent="deleteItem(item.resource_url)">
                                                     <button type="submit" class="btn btn-sm btn-danger" title="{{ trans('brackets/admin-ui::admin.btn.delete') }}"><i class="fa fa-trash-o"></i></button>
