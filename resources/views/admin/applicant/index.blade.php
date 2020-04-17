@@ -58,6 +58,7 @@
                                         <th is='sortable' :column="'marital_status'">{{ trans('admin.applicant.columns.marital_status') }}</th>
                                         <th is='sortable' :column="'monthly_income'">{{ trans('admin.applicant.columns.monthly_income') }}</th>
                                        
+                                       
                                         {{-- <th is='sortable' :column="'gender'">{{ trans('admin.applicant.columns.gender') }}</th>
                                         <th is='sortable' :column="'education_level'">{{ trans('admin.applicant.columns.education_level') }}</th>
                                         <th is='sortable' :column="'pregnant'">{{ trans('admin.applicant.columns.pregnant') }}</th>
@@ -115,7 +116,10 @@
                                                     <a class="btn btn-sm btn-spinner btn-info" :href="'/admin/applicant-documents/'+item.id+'/1/create'" title="{{ trans('brackets/admin-ui::admin.btn.documentsatc') }}" role="button"><i class="fa fa-file-o"></i></a>
                                                 </div>
                                                 <div class="col-auto">
-                                                    <a class="btn btn-sm btn-spinner btn-info" :href="'/admin/applicant-answers/'+item.id+'/create'" title="{{ trans('brackets/admin-ui::admin.btn.show') }}" role="button"><i class="fa fa-list-ol"></i></a>
+                                                    <a class="btn btn-sm btn-spinner btn-info" :href="'/admin/applicant-answers/'+item.id+'/create'" title="{{ trans('brackets/admin-ui::admin.btn.show') }}" role="button"><i class="fa fa-question"></i></a>
+                                                </div>
+                                                <div class="col-auto">
+                                                    <a class="btn btn-sm btn-spinner btn-info" :href="'/admin/applicants/'+item.id+'/detailsmembers'" title="{{ trans('brackets/admin-ui::admin.btn.list') }}" role="button"><i class="fa fa-list"></i></a>
                                                 </div>
                                                 {{-- <div class="col-auto">
                                                     <a class="btn btn-sm btn-spinner btn-info" :href="item.resource_url + '/edit'" title="{{ trans('brackets/admin-ui::admin.btn.edit') }}" role="button"><i class="fa fa-edit"></i></a>

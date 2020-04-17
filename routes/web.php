@@ -192,6 +192,7 @@ Route::middleware(['auth:' . config('admin-auth.defaults.guard'), 'admin'])->gro
             Route::post('/',                                            'ApplicantsController@store')->name('store');
             Route::get('/{applicant}/edit',                             'ApplicantsController@edit')->name('edit');
             Route::get('/{applicant}/show',                             'ApplicantsController@show')->name('show');
+            Route::get('/{applicant}/detailsmembers',                   'ApplicantsController@detailsmembers')->name('detailsmembers');
             Route::get('/{applicant}/documentsatc',                     'ApplicantsController@documentsatc')->name('documentsatc');
             Route::post('/bulk-destroy',                                'ApplicantsController@bulkDestroy')->name('bulk-destroy');
             Route::post('/{applicant}',                                 'ApplicantsController@update')->name('update');

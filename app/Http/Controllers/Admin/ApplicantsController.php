@@ -74,6 +74,8 @@ class ApplicantsController extends Controller
                 if($request->has('monthly_income')){
                     $query->whereIn('education_level', $request->get('educationlevels'));
                 }
+               $query->whereNull('applicant_relationship');
+            
            
         
             });
@@ -129,6 +131,7 @@ class ApplicantsController extends Controller
                 if($request->has('applicants')){
                     $query->whereIn('parent_applicant', $request->get('applicants'));
                 }
+        
             }
 
          
@@ -220,6 +223,20 @@ class ApplicantsController extends Controller
         
 
         return view('admin.applicant.show', compact('questions','postulante','educationSelect', 'diseaseSelect', 'disabilitySelect', 'contactMethodSelect'));
+    }
+    public function detailsmembers(Applicant $applicant)
+    {
+        $this->authorize('admin.applicant.show', $applicant);
+
+        $applicants=Applicant::where('id','=',$applicant->id)->with('state')->get()->toArray();
+        // return ($applicants);
+      
+        $details=applicant::where('parent_applicant','=',$applicant->id)->with('applicantRelationship')->get()->toArray();
+      
+      
+        
+
+        return view('admin.applicant.detailsmembers', compact('applicants', 'details'));
     }
 
     /**
